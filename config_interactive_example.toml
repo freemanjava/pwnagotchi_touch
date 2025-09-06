@@ -1,0 +1,94 @@
+# Interactive Pwnagotchi Configuration Example
+# Copy this to /etc/pwnagotchi/config.toml and customize for your setup
+
+[main]
+name = "MyPwnagotchi"
+lang = "en"
+iface = "wlan0"
+
+# Whitelist networks to avoid attacking
+whitelist = [
+    "MyHomeNetwork",
+    "00:11:22:33:44:55"  # Example BSSID
+]
+
+[ui]
+# Enable interactive touchscreen mode
+interactive = true
+
+# Set to true for white background (false for black)
+invert = false
+
+[ui.display]
+enabled = true
+# For Waveshare 2.13" e-paper display
+type = "waveshare2in13_V2"
+
+[bettercap]
+# Bettercap API settings
+hostname = "127.0.0.1"
+port = 8081
+username = "pwnagotchi"
+password = "pwnagotchi"
+
+# Directory to store captured handshakes
+handshakes = "/root/handshakes/"
+
+# Events to ignore (reduces log noise)
+silence = [
+    "wifi.ap.new",
+    "wifi.ap.lost",
+    "wifi.client.new",
+    "wifi.client.lost",
+    "wifi.client.probe"
+]
+
+[personality]
+# WiFi scanning parameters
+channels = []  # Empty = scan all channels
+ap_ttl = 120
+sta_ttl = 300
+min_rssi = -200
+recon_time = 30
+max_inactive_scale = 2
+recon_inactive_multiplier = 2
+hop_recon_time = 10
+min_recon_time = 5
+
+# Attack settings
+associate = true
+deauth = true
+max_interactions = 3
+
+[logging]
+# Logging configuration
+path = "/var/log/pwnagotchi.log"
+level = "INFO"
+
+[main.plugins.bt-tether]
+# Bluetooth tethering (optional)
+enabled = false
+# Uncomment and configure if using Bluetooth tethering
+# phone-name = "YourPhone"
+# phone = "android"  # or "ios"
+# ip = "192.168.44.44"  # For Android
+# mac = "XX:XX:XX:XX:XX:XX"
+
+[main.plugins.grid]
+# Grid plugin for uploading data (optional)
+enabled = false
+
+[main.plugins.wigle]
+# WiGLE integration (optional)
+enabled = false
+
+# Additional UI settings for interactive mode
+[ui.touchscreen]
+# Touch sensitivity settings
+debounce_time = 0.3
+device_path = "/dev/input/event0"
+
+# Bluetooth scanning settings
+[bluetooth]
+scan_timeout = 30
+max_devices = 50
